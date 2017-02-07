@@ -5,6 +5,7 @@ import time
 import telepot
 from telepot.namedtuple import ReplyKeyboardMarkup, KeyboardButton, ReplyKeyboardRemove, ForceReply
 cats = []
+users = []
 def loadcats():
     catsnames = os.listdir("cats")
     for cat in catsnames:
@@ -15,7 +16,12 @@ def loadcats():
 
 def on_chat_message(msg):
     content_type, chat_type, chat_id = telepot.glance(msg)
-    print(str(chat_id)+ " : "+msg['text'])
+    username = msg['from']['username']
+    print(username + " : "+msg['text'])
+    if username not in users :
+        users.append(username)
+        print("___ " + str(len(users)) + " ___ users now")
+
     keyboard = ReplyKeyboardMarkup(keyboard=[
         [KeyboardButton(text='Cat me')]
     ])
