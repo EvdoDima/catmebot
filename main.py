@@ -18,13 +18,14 @@ def on_chat_message(msg):
     content_type, chat_type, chat_id = telepot.glance(msg)
 
     try:
-        chat_id = msg['from']['username']
+        username = msg['from']['username']
     except:
+        username = chat_id
         print("cannot obtain username")
 
-    print(chat_id + " : "+msg['text'])
-    if chat_id not in users:
-        users.append(chat_id)
+    print(username + " : "+msg['text'])
+    if username not in users :
+        users.append(username)
         print("___ " + str(len(users)) + " ___ users now")
 
     keyboard = ReplyKeyboardMarkup(keyboard=[
