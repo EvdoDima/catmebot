@@ -23,8 +23,8 @@ def on_chat_message(msg):
         username = chat_id
         print("cannot obtain username")
 
-    print(username + " : "+msg['text'])
-    if username not in users :
+    print(str(username) + " : "+msg['text'])
+    if username not in users:
         users.append(username)
         print("___ " + str(len(users)) + " ___ users now")
 
