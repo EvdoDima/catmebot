@@ -4,14 +4,15 @@ import sys
 import time
 import telepot
 from telepot.namedtuple import ReplyKeyboardMarkup, KeyboardButton, ReplyKeyboardRemove, ForceReply
+
 cats = []
 users = []
+
 def loadcats():
     catsnames = os.listdir("cats")
     for cat in catsnames:
         # print(cat)
         cats.append(cat)
-
 
 
 def on_chat_message(msg):
@@ -23,7 +24,8 @@ def on_chat_message(msg):
         username = chat_id
         print("cannot obtain username")
 
-    print(str(username) + " : "+msg['text'])
+    print(str(username) + " : "+ msg['text'])
+
     if username not in users:
         users.append(username)
         print("___ " + str(len(users)) + " ___ users now")
@@ -37,8 +39,7 @@ def on_chat_message(msg):
         loadcats()
         random.shuffle(cats)
         f = open("cats/"+cats[0], 'rb')
-        bot.sendPhoto(chat_id,f)
-
+        bot.sendPhoto(chat_id, f)
     else:
         bot.sendMessage(chat_id, 'WTF', reply_markup=keyboard)
 
@@ -49,5 +50,5 @@ bot = telepot.Bot(TOKEN)
 bot.message_loop({'chat': on_chat_message})
 print('Listening ...')
 
-while 1:
+while True:
     time.sleep(10)
